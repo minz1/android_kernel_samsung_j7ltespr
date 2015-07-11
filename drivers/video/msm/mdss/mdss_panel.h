@@ -222,6 +222,7 @@ enum mdss_intf_events {
 	MDSS_EVENT_DSI_DYNAMIC_SWITCH,
 	MDSS_EVENT_REGISTER_RECOVERY_HANDLER,
 	MDSS_EVENT_DSI_PANEL_STATUS,
+	MDSS_EVENT_UPDATE_LIVEDISPLAY,
 #if defined(CONFIG_FB_MSM_MDSS_SAMSUNG)
 	MDSS_SAMSUNG_EVENT_FRAME_UPDATE,
 	MDSS_SAMSUNG_EVENT_FB_EVENT_CALLBACK,
@@ -377,6 +378,8 @@ struct mdss_mdp_pp_tear_check {
 	u32 refx100;
 };
 
+struct mdss_livedisplay_ctx;
+
 struct mdss_panel_info {
 	u32 xres;
 	u32 yres;
@@ -454,6 +457,8 @@ struct mdss_panel_info {
 	struct mipi_panel_info mipi;
 	struct lvds_panel_info lvds;
 	struct edp_panel_info edp;
+
+	struct mdss_livedisplay_ctx *livedisplay;
 
 	/* debugfs structure for the panel */
 	struct mdss_panel_debugfs_info *debugfs_info;

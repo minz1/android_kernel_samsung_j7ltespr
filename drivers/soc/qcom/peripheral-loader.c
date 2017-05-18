@@ -393,6 +393,8 @@ static int pil_alloc_region(struct pil_priv *priv, phys_addr_t min_addr,
 		if (sec_debug_is_enabled())
 #endif
 			BUG_ON(!strcmp(priv->desc->name, "venus"));
+		priv->region_start = 0;
+		priv->region_end = 0;
 		return -ENOMEM;
 	}
 
@@ -805,7 +807,8 @@ out:
 					&desc->attrs);
 			priv->region = NULL;
 		}
-		pil_clear_segment(desc);
+		if (desc->clear_fw_region && priv->region_start)
+			pil_clear_segment(desc);
 		pil_release_mmap(desc);
 	}
 	return ret;
